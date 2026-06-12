@@ -1,0 +1,178 @@
+footer {
+    background-color: #1b1b1b;
+    color: white;
+    padding: clamp(40px, 8vw, 60px) var(--main-x-padding);
+    line-height: 24px;
+}
+
+.footer_top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.site_nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(20px, 4vw, 40px);
+}
+
+.site_nav > div {
+    width: clamp(160px, 15vw, 220px);
+}
+
+.site_nav h4 {
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-size: clamp(14px, 1.2vw, 15px);
+    font-weight: 800;
+}
+
+.site_nav ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.site_nav li {
+    margin-bottom: 8px;
+    font-size: clamp(12px, 1.1vw, 14px);
+    color: #848484;
+}
+
+.site_nav li a {
+    color: inherit;
+    text-decoration: none;
+    transition: text-decoration 0.3s ease;
+}
+
+.site_nav li a:hover {
+    text-decoration: underline;
+}
+
+.sns_nav ul {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.sns_nav li {
+    margin-right: 12px;
+}
+
+.sns_nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sns_nav a:hover {
+    background-color: white;
+    color: black;
+}
+
+.me_information .name,
+.me_information .email,
+.me_information .text {
+    font-size: 13px;
+    color: #848484;
+}
+
+footer hr {
+    margin: clamp(32px, 6vw, 48px) 0;
+    border: none;
+    border-top: 1px solid #333;
+}
+
+.footer_bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #848484;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.corp_information span {
+    margin-right: 15px;
+}
+
+.site_information {
+    text-align: right;
+}
+
+/* Hyper-granular Media Queries */
+
+@media screen and (max-width: 1280px) {
+    .site_nav > div {
+        width: 170px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .footer_top {
+        gap: 40px;
+    }
+    .site_nav > div {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .site_nav {
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer_top {
+        display: block;
+    }
+
+    .site_nav {
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+
+    .site_nav > div {
+        width: auto;
+        flex: 1;
+        min-width: 140px;
+    }
+
+    .footer_bottom {
+        display: block;
+        text-align: center;
+    }
+
+    .site_information {
+        margin-top: 32px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .site_nav > div {
+        min-width: 120px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .site_nav {
+        display: block;
+    }
+
+    .site_nav > div {
+        margin-bottom: 32px;
+    }
+
+    .corp_information span {
+        display: block;
+        margin-bottom: 4px;
+    }
+}

@@ -1,0 +1,141 @@
+.trending-list-container {
+    padding-top: clamp(10px, 2vw, 20px);
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    padding: 0 var(--main-x-padding);
+}
+
+.product-grid.dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+}
+
+.product-item {
+    display: flex;
+    width: clamp(280px, 30vw, 426px);
+    margin-right: clamp(14px, 2vw, 20px);
+    flex-shrink: 0;
+}
+
+.product-item a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #000000;
+    width: 100%;
+}
+
+.product-item .image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1.25;
+    overflow: hidden;
+    background-color: #f3f3f3;
+}
+
+.product-item .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-item a:hover .image-container img {
+    transform: scale(1.05);
+}
+
+.product-item .tag {
+    font-size: clamp(10px, 1.1vw, 12px);
+    font-weight: 500;
+    color: #848484;
+    padding-top: 12px;
+}
+
+.product-item .title {
+    font-size: clamp(15px, 1.8vw, 20px);
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-item .price {
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-weight: 400;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 1600px) {
+    .product-item {
+        width: clamp(260px, 28vw, 380px);
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .product-grid {
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .product-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-item {
+        width: 320px;
+        margin-right: 18px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .product-item {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .product-item {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .product-item {
+        width: 260px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .product-item {
+        width: 240px;
+        margin-right: 16px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .product-item {
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .product-item {
+        width: 180px;
+        margin-right: 12px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .product-item {
+        width: 160px;
+    }
+}

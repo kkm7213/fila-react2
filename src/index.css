@@ -1,0 +1,244 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
+
+:root {
+    --font-family-base: 'Plus Jakarta Sans', 'Pretendard', sans-serif;
+    --font-family-display: 'Plus Jakarta Sans', 'Pretendard', sans-serif;
+
+    --color-surface: #f9f9f9;
+    --color-surface-dim: #dadada;
+    --color-surface-bright: #f9f9f9;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f3f3f3;
+    --color-surface-container: #eeeeee;
+    --color-surface-container-high: #e8e8e8;
+    --color-surface-container-highest: #e2e2e2;
+    --color-on-surface: #1b1b1b;
+    --color-on-surface-variant: #4c4546;
+    --color-inverse-surface: #303030;
+    --color-inverse-on-surface: #f1f1f1;
+    --color-outline: #7e7576;
+    --color-outline-variant: #cfc4c5;
+    --color-surface-tint: #5e5e5e;
+    --color-primary: #ffffff;
+    --color-on-primary: #ffffff;
+    --color-primary-container: #1b1b1b;
+    --color-on-primary-container: #848484;
+    --color-inverse-primary: #c6c6c6;
+    --color-secondary: #625e58;
+    --color-on-secondary: #ffffff;
+    --color-secondary-container: #e5dfd7;
+    --color-on-secondary-container: #66625c;
+    --color-tertiary: #000000;
+    --color-on-tertiary: #ffffff;
+    --color-tertiary-container: #1b1b1b;
+    --color-on-tertiary-container: #848484;
+    --color-error: #ba1a1a;
+    --color-on-error: #ffffff;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
+    --color-primary-fixed: #ffffff;
+    --color-primary-fixed-dim: #c6c6c6;
+    --color-on-primary-fixed: #1b1b1b;
+    --color-on-primary-fixed-variant: #474747;
+    --color-secondary-fixed: #e8e1da;
+    --color-secondary-fixed-dim: #ccc6be;
+    --color-on-secondary-fixed: #1e1b17;
+    --color-on-secondary-fixed-variant: #4a4641;
+    --color-tertiary-fixed: #e2e2e2;
+    --color-tertiary-fixed-dim: #c6c6c6;
+    --color-on-tertiary-fixed: #1b1b1b;
+    --color-on-tertiary-fixed-variant: #474747;
+    --color-background: #f9f9f9;
+    --color-on-background: #1b1b1b;
+    --color-surface-variant: #e2e2e2;
+
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-border: #000000;
+    --color-border-subtle: #e5e5e5;
+    --color-backdrop: rgba(255, 255, 255, 0.9);
+
+    --typography-display-lg-font-size: 64px;
+    --typography-display-lg-font-weight: 700;
+    --typography-display-lg-line-height: 1.1;
+    --typography-display-lg-letter-spacing: -0.02em;
+
+    --typography-headline-lg-font-size: 40px;
+    --typography-headline-lg-font-weight: 600;
+    --typography-headline-lg-line-height: 1.2;
+    --typography-headline-lg-letter-spacing: -0.01em;
+
+    --typography-headline-md-font-size: 32px;
+    --typography-headline-md-font-weight: 600;
+    --typography-headline-md-line-height: 1.3;
+
+    --typography-headline-sm-font-size: 24px;
+    --typography-headline-sm-font-weight: 600;
+    --typography-headline-sm-line-height: 1.4;
+
+    --typography-body-lg-font-size: 18px;
+    --typography-body-lg-font-weight: 400;
+    --typography-body-lg-line-height: 1.6;
+
+    --typography-body-md-font-size: 16px;
+    --typography-body-md-font-weight: 400;
+    --typography-body-md-line-height: 1.6;
+
+    --typography-label-md-font-size: 14px;
+    --typography-label-md-font-weight: 500;
+    --typography-label-md-line-height: 1.2;
+
+    --typography-caption-font-size: 12px;
+    --typography-caption-font-weight: 400;
+    --typography-caption-line-height: 1.4;
+
+    --main-x-padding: 80px;
+    --main-y-padding: 102px;
+}
+
+@media screen and (max-width: 1920px) {
+    :root {
+        --main-x-padding: 64px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    :root {
+        --main-x-padding: 56px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    :root {
+        --main-x-padding: 48px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    :root {
+        --main-x-padding: 40px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    :root {
+        --main-x-padding: 32px;
+        --main-y-padding: 88px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    :root {
+        --main-x-padding: 28px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --main-x-padding: 24px;
+        --main-y-padding: 64px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    :root {
+        --main-x-padding: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --main-x-padding: 16px;
+        --main-y-padding: 48px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    :root {
+        --main-x-padding: 12px;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-base);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}

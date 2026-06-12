@@ -1,0 +1,46 @@
+.coupon_banner {
+    background-color: blue;
+    text-align: center;
+    position: fixed;
+    width: 100vw;
+    height: 34px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 30px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.coupon_banner > span {
+    color: #fff;
+}
+
+.coupon_banner > button {
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    background: unset;
+    border: none;
+    font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .coupon_banner {
+        height: 40px;
+        padding: 0 44px 0 16px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .coupon_banner {
+        height: 44px;
+        font-size: 11px;
+    }
+}

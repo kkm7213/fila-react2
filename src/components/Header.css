@@ -1,0 +1,307 @@
+header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--main-x-padding);
+    padding-right: var(--main-x-padding);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    z-index: 500;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header.header_light {
+    color: #ffffff;
+}
+
+header.header_dark {
+    color: #000000;
+}
+
+header.header_menu_open {
+    background-color: #ffffff;
+}
+
+header > .home_btn > img {
+    width: clamp(40px, 4vw, 50px);
+    height: auto;
+}
+
+header > .main_menu {
+    display: flex;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header > .main_menu > li {
+    cursor: pointer;
+    padding: clamp(8px, 1.2vw, 15px);
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+header > .main_menu > li > a {
+    text-decoration: none;
+    padding: 4px 0;
+    color: currentColor;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+header > .main_menu > li:hover > a {
+    border-bottom: 2px solid currentColor;
+}
+
+header > nav {
+    position: absolute;
+    right: 0;
+    margin-right: var(--main-x-padding);
+}
+
+header > nav > ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header > nav > ul > li {
+    cursor: pointer;
+}
+
+header > nav > ul > li > a {
+    color: currentColor;
+    width: clamp(40px, 4vw, 55px);
+    height: clamp(40px, 4vw, 55px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: clamp(16px, 1.5vw, 20px);
+    position: relative;
+}
+
+.cart_count {
+    position: absolute;
+    top: clamp(8px, 1vw, 10px);
+    right: clamp(8px, 1vw, 10px);
+    background-color: #000;
+    color: #fff;
+    font-size: clamp(8px, 0.8vw, 10px);
+    width: clamp(14px, 1.2vw, 16px);
+    height: clamp(14px, 1.2vw, 16px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+header.header_light .cart_count {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+header.header_dark .cart_count {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Submenu */
+header .sub_menu_container {
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    justify-content: center;
+    padding: clamp(20px, 4vw, 42px);
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+header .sub_menu_container > div {
+    width: clamp(150px, 15vw, 200px);
+    margin: 0 clamp(10px, 2vw, 20px);
+}
+
+header .sub_menu_title {
+    display: block;
+    font-size: clamp(14px, 1.2vw, 16px);
+    font-weight: bold;
+    color: black;
+    margin-bottom: clamp(16px, 2vw, 24px);
+    text-align: left;
+}
+
+header .sub_menu_title a {
+    text-decoration: none;
+    color: black;
+}
+
+header .sub_menu_title a:hover {
+    text-decoration: underline;
+}
+
+header .sub_menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header .sub_menu > li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+header .sub_menu > li a {
+    text-align: left;
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 400;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+header .sub_menu > li a:hover {
+    text-decoration: underline;
+}
+
+.mobile_toggle_btn {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+/* Hyper-granular Media Queries */
+
+@media screen and (max-width: 1440px) {
+    header > .main_menu > li {
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    header > .main_menu > li {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* Switch to mobile menu at 1024px to prevent overlap */
+    header {
+        position: fixed;
+        top: 0 !important;
+        background-color: transparent;
+        padding: 10px 16px;
+    }
+
+    header.mobile_menu_open {
+        background-color: #ffffff;
+        color: #000000 !important;
+    }
+
+    .mobile_toggle_btn {
+        display: block;
+    }
+
+    header > .home_btn {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    header > .main_menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: min(320px, 80%);
+        height: 100vh;
+        background-color: #ffffff;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 24px;
+        transition: left 0.3s ease;
+        z-index: 1050;
+        overflow-y: auto;
+        display: flex;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    header > .main_menu.active {
+        left: 0;
+    }
+
+    header > .main_menu > li {
+        width: 100%;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        color: #000;
+    }
+
+    header .sub_menu_container {
+        position: static;
+        display: none;
+        flex-direction: column;
+        padding: 15px 0 0 15px;
+        box-shadow: none;
+        width: 100%;
+    }
+
+    header .sub_menu_container > div {
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+
+    header .sub_menu_title {
+        margin-bottom: 12px;
+    }
+
+    header > nav {
+        position: static;
+        margin-right: 0;
+        display: flex;
+    }
+
+    header > nav > ul > li > a {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    header > nav > ul > li:not(.cart_nav_item) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header > .home_btn > img {
+        width: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 8px 12px;
+    }
+    header > nav > ul > li > a {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+}

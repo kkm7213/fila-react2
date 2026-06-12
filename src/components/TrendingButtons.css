@@ -1,0 +1,91 @@
+.trending-buttons-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--main-x-padding) clamp(20px, 4vw, 40px);
+    overflow: hidden;
+}
+
+.category-list {
+    display: flex;
+    gap: clamp(16px, 3vw, 40px); /* 마진 대신 gap 사용 */
+}
+
+.category-list li {
+    margin: 0;
+}
+
+.category-list li button {
+    background-color: unset;
+    border: none;
+    border-bottom: 2px solid #ffffff;
+    cursor: pointer;
+    font-size: clamp(15px, 1.5vw, 20px);
+    font-weight: 700;
+    color: lightgray;
+    padding-bottom: 4px;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-list li button:hover {
+    color: #000000;
+}
+
+.category-list li.active button {
+    border-bottom: 2px solid #000000;
+    color: #000000;
+}
+
+.arrow-button-container {
+    display: flex;
+    gap: 12px;
+}
+
+.arrow-button {
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    padding: clamp(6px, 0.8vw, 10px) clamp(20px, 3vw, 40px);
+    cursor: pointer;
+    background-color: transparent;
+    font-size: clamp(14px, 1.2vw, 18px);
+    color: #cccccc;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.arrow-button:hover {
+    background-color: #000000;
+    border: 2px solid transparent;
+    color: white;
+}
+
+/* Media Queries (Synced with TrendingList) */
+@media screen and (max-width: 1440px) {
+    .category-list {
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .category-list::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .arrow-button-container {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .trending-buttons-nav {
+        display: block;
+        padding-bottom: 24px;
+    }
+
+    .category-list {
+        width: 100%;
+        padding-bottom: 8px;
+    }
+}

@@ -1,0 +1,130 @@
+.information4_section {
+    background-color: #000000;
+}
+
+.information4_section .title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.information4_section h2 {
+    font-size: 64px;
+    font-weight: 600;
+    color: white;
+    padding: 88px 48px 0;
+}
+
+.information4_section .more_btn {
+    font-size: 18px;
+    padding: 12px 40px;
+    border-radius: 30px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    margin: 0 48px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.information4_section .more_btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.information4_section .slide_wrapper {
+    overflow: hidden;
+    padding: 48px 48px 102px;
+}
+
+.information4_section .slide_container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 12px;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.information4_section .slide_container::-webkit-scrollbar {
+    display: none;
+}
+
+.information4_section .slide_container.dragging {
+    cursor: grabbing;
+}
+
+.information4_section .slide_container > li {
+    width: 568px;
+    height: 740px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.information4_section .slide_container > li > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Media Queries (adapted) */
+@media screen and (max-width: 1440px) {
+    .information4_section h2 {
+        font-size: 58px;
+    }
+
+    .information4_section .slide_container > li {
+        width: 470px;
+        height: 630px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .information4_section h2 {
+        font-size: 52px;
+    }
+
+    .information4_section .slide_container > li {
+        width: 420px;
+        height: 560px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .information4_section h2 {
+        font-size: 42px;
+    }
+
+    .information4_section .slide_container > li {
+        width: 340px;
+        height: 460px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .information4_section .title_container {
+        display: block;
+    }
+
+    .information4_section h2 {
+        font-size: 34px;
+        padding: 56px 16px 0;
+    }
+
+    .information4_section .more_btn {
+        margin: 24px 16px 0;
+        font-size: 15px;
+    }
+
+    .information4_section .slide_container > li {
+        width: 260px;
+        height: 360px;
+    }
+}

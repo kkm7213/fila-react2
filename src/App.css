@@ -1,0 +1,72 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.trending_section {
+    padding: var(--main-y-padding) 0;
+}
+
+.trending_section > h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 600;
+    margin-bottom: clamp(12px, 2vw, 24px);
+    padding-left: var(--main-x-padding);
+    padding-right: var(--main-x-padding);
+}
+
+/* Hyper-granular Media Queries */
+
+@media screen and (max-width: 1600px) {
+    .trending_section > h2 {
+        font-size: clamp(32px, 4.5vw, 54px);
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .trending_section > h2 {
+        font-size: clamp(32px, 4.2vw, 50px);
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .trending_section > h2 {
+        font-size: clamp(30px, 4vw, 46px);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .trending_section > h2 {
+        font-size: clamp(28px, 3.8vw, 42px);
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .trending_section > h2 {
+        font-size: clamp(26px, 3.6vw, 38px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .trending_section > h2 {
+        font-size: clamp(24px, 5vw, 36px);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .trending_section > h2 {
+        font-size: clamp(22px, 5.5vw, 32px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .trending_section > h2 {
+        font-size: clamp(20px, 6vw, 28px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .trending_section > h2 {
+        font-size: 18px;
+    }
+}
