@@ -1,7 +1,6 @@
 {
   "name": "fila-react2",
   "private": true,
-  "homepage": "https://kkm7213.github.io/fila-react/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
