@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/ScrollToTop.css';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // 스크롤 위치에 따라 버튼 표시 여부 결정
   const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    setIsVisible(window.pageYOffset > 300);
   };
 
-  // 최상단으로 스크롤
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -22,7 +16,9 @@ const ScrollToTop = () => {
   };
 
   useEffect(() => {
+    toggleVisibility();
     window.addEventListener('scroll', toggleVisibility);
+
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
@@ -30,12 +26,12 @@ const ScrollToTop = () => {
 
   return (
     <div className={`scroll-to-top ${isVisible ? 'visible' : ''}`}>
-      <button 
-        type="button" 
-        onClick={scrollToTop} 
+      <button
+        type="button"
+        onClick={scrollToTop}
         aria-label="페이지 최상단으로 이동"
       >
-        <i className="fa-solid fa-arrow-up"></i>
+        <i className="fa-solid fa-arrow-up" aria-hidden="true"></i>
       </button>
     </div>
   );

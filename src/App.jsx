@@ -14,6 +14,7 @@ import ProductModal from './components/jsx/ProductModal';
 import ProductListPage from './components/jsx/ProductListPage';
 import ProductDetailPage from './components/jsx/ProductDetailPage';
 import CartPage from './components/jsx/CartPage';
+import ScrollToTop from './components/jsx/ScrollToTop';
 import { menProducts } from './data/menProductData';
 import './App.css';
 
@@ -247,6 +248,8 @@ function App() {
         product={lookProduct}
         onAddToCart={addToCart}
       />
+
+      <ScrollToTop />
     </div>
   );
 }

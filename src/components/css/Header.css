@@ -12,6 +12,8 @@ header {
     z-index: 500;
     background-color: transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+    letter-spacing: -0.02em;
 }
 
 header.header_light {
@@ -36,6 +38,8 @@ header > .main_menu {
     left: 0;
     width: 100%;
     justify-content: center;
+    align-items: center;
+    gap: clamp(4px, 0.8vw, 14px);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -43,18 +47,33 @@ header > .main_menu {
 
 header > .main_menu > li {
     cursor: pointer;
-    padding: clamp(8px, 1.2vw, 15px);
-    font-size: clamp(13px, 1.1vw, 16px);
+    padding: clamp(10px, 1.2vw, 16px) clamp(8px, 1vw, 14px);
+    font-size: clamp(13px, 1.05vw, 16px);
     font-weight: 700;
+    line-height: 1.4;
     white-space: nowrap;
 }
 
 header > .main_menu > li > a {
     text-decoration: none;
-    padding: 4px 0;
+    padding: 6px 0;
     color: currentColor;
     border-bottom: 2px solid transparent;
     transition: border-bottom-color 0.3s ease;
+}
+.header_menu_open .sub_menu_list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.header_menu_open .sub_menu_title {
+    font-size: 18px;
+}
+
+.header_menu_open .sub_menu_list > li {
+    font-size: clamp(13px, 1.05vw, 16px);
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 header > .main_menu > li:hover > a {
@@ -69,6 +88,8 @@ header > nav {
 
 header > nav > ul {
     display: flex;
+    align-items: center;
+    gap: clamp(2px, 0.4vw, 8px);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -88,6 +109,8 @@ header > nav > ul > li > a {
     text-decoration: none;
     font-size: clamp(16px, 1.5vw, 20px);
     position: relative;
+    border-radius: 50%;
+    transition: background-color 0.25s ease, opacity 0.25s ease;
 }
 
 .cart_count {
