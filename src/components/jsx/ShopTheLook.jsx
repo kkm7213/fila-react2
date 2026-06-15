@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { lookImages } from '../data/lookData';
-import './ShopTheLook.css';
+import { lookImages } from '../../data/lookData';
+import '../css/ShopTheLook.css';
+
 
 const ShopTheLook = ({ onProductClick }) => {
   const scrollRef = useRef(null);

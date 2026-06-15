@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './ProductDetailPage.css';
+import React, { useState, useMemo } from 'react';
+import '../css/ProductDetailPage.css';
 
 const commonImages = import.meta.glob('@/assets/image/*', {
   eager: true,
@@ -16,11 +16,27 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
   const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
   const [newReviewContent, setNewReviewContent] = useState("");
   const [newReviewRating, setNewReviewRating] = useState(5);
+  const [imagePreview, setImagePreview] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState("");
 
   const toggleAccordion = (index) => {
     setOpenAccordions(prev => ({ ...prev, [index]: !prev[index] }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
   };
 
   const handleAddToCart = () => {
@@ -42,9 +58,11 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
       author: "사용자",
       rating: newReviewRating,
       content: newReviewContent,
+      image: imagePreview,
       isAdmin: false
     });
     setNewReviewContent("");
+    setImagePreview(null);
     setIsReviewFormOpen(false);
   };
 
@@ -57,6 +75,29 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
     onUpdateReview(id, editContent);
     setEditingId(null);
   };
+
+  // 리뷰 통계 계산 로직 (누락된 변수 추가)
+  const reviewStats = useMemo(() => {
+    const safeReviews = reviews || [];
+    const total = safeReviews.length;
+    if (total === 0) return { average: "0.0", counts: [0, 0, 0, 0, 0], percents: [0, 0, 0, 0, 0], positiveRate: 0, total: 0 };
+    
+    const counts = [0, 0, 0, 0, 0]; // 5, 4, 3, 2, 1점 순
+    let sum = 0;
+    
+    safeReviews.forEach(r => {
+      sum += r.rating;
+      if (r.rating >= 1 && r.rating <= 5) {
+        counts[5 - r.rating]++;
+      }
+    });
+    
+    const average = (sum / total).toFixed(1);
+    const percents = counts.map(c => Math.round((c / total) * 100));
+    const positiveRate = Math.round(((counts[0] + counts[1]) / total) * 100);
+    
+    return { average, counts, percents, positiveRate, total };
+  }, [reviews]);
 
   if (!product) return <div style={{ padding: '200px', textAlign: 'center' }}>상품을 찾을 수 없습니다.</div>;
 
@@ -89,8 +130,13 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
 
               <div className="group">
                 <ul>
-                  <li><a href="#"><img src={productImg} alt={product.title} /></a></li>
-                  <li><a href="#"><img src={getCommonImage('clothes1.png')} alt="Alternative" /></a></li>
+                  {(product.thumbnails || []).map((thumb, index) => (
+                    <li key={index}>
+                      <a href="#" className={index === 0 ? 'active' : ''}>
+                        <img src={thumb} alt={`${product.title} thumbnail ${index + 1}`} />
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -130,16 +176,17 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
         </section>
 
         {/* Detail Section */}
-        <section id="detail">
+        <section id="detail" aria-label="상품 상세 정보">
           <div className="image_container">
-            <img src={productImg} alt="Detail 1" />
-            <img src={getCommonImage('clothes4-2.jpg')} alt="Detail 2" />
-            <img src={getCommonImage('clothes4-3.webp')} alt="Detail 3" />
-            <img src={getCommonImage('clothes4-4.jpg')} alt="Detail 4" />
+            <img src={productImg} alt={`${product.title} 상세 이미지 1`} />
+            <img src={getCommonImage('clothes4-2.jpg')} alt={`${product.title} 상세 이미지 2`} />
+            <img src={getCommonImage('clothes4-3.webp')} alt={`${product.title} 상세 이미지 3`} />
+            <img src={getCommonImage('clothes4-4.jpg')} alt={`${product.title} 상세 이미지 4`} />
           </div>
 
           <div className="information">
-            <div>
+            <div className="description_box">
+              <h2 className="sr-only">상품 설명</h2>
               <p className="text">
                 빈티지한 무드가 가미된 “MY FAVORITE” 레터링과 실사 느낌의 강아지 조합으로 귀여움에 빈티지 한방울의 감성을 담아 트렌디한 무드를 연출할 수 있습니다.
                 워싱된 듯한 컬러 톤과 소프트한 프린트 표현으로 과하지 않게 포인트를 주며, 특히 감각적인 컬러 조합으로 모든 룩에 적당한 포인트가 되어줍니다.
@@ -149,13 +196,13 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
               <span className="text">상품코드 : 1100FS262RS01X035006</span>
             </div>
 
-            <div>
+            <div className="accordion_group">
               <div className="accordion">
-                <div className="head" onClick={() => toggleAccordion(0)}>
+                <div className="head" onClick={() => toggleAccordion(0)} role="button" aria-expanded={openAccordions[0]} aria-controls="accordion-membership">
                   <b>멤버쉽 혜택</b>
-                  <i className="fa-solid fa-caret-down"></i>
+                  <i className={`fa-solid ${openAccordions[0] ? 'fa-caret-up' : 'fa-caret-down'}`} aria-hidden="true"></i>
                 </div>
-                <div className="body membership" style={{ display: openAccordions[0] ? 'flex' : 'none' }}>
+                <div id="accordion-membership" className="body membership" style={{ display: openAccordions[0] ? 'flex' : 'none' }}>
                   <ul>
                     <li>신규회원 10,000원 할인 쿠폰</li>
                     <li>첫 구매 30일 후 10,000원 재구매 쿠폰</li>
@@ -166,11 +213,11 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
               </div>
 
               <div className="accordion">
-                <div className="head" onClick={() => toggleAccordion(1)}>
+                <div className="head" onClick={() => toggleAccordion(1)} role="button" aria-expanded={openAccordions[1]} aria-controls="accordion-product-info">
                   <b>상품정보고시</b>
-                  <i className="fa-solid fa-caret-down"></i>
+                  <i className={`fa-solid ${openAccordions[1] ? 'fa-caret-up' : 'fa-caret-down'}`} aria-hidden="true"></i>
                 </div>
-                <div className="body product_information" style={{ display: openAccordions[1] ? 'flex' : 'none' }}>
+                <div id="accordion-product-info" className="body product_information" style={{ display: openAccordions[1] ? 'flex' : 'none' }}>
                   <div><span>제품소재</span><span>겉감1: 면 100% 겉감2: 면 75% 폴리에스터 25%</span></div>
                   <div><span>사이즈</span><span>XS(085),S(090),M(095),L(100),XL(105)</span></div>
                   <div><span>제조자</span><span>미스토코리아(주)(미스토코리아(주))</span></div>
@@ -183,11 +230,11 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
               </div>
 
               <div className="accordion">
-                <div className="head" onClick={() => toggleAccordion(2)}>
+                <div className="head" onClick={() => toggleAccordion(2)} role="button" aria-expanded={openAccordions[2]} aria-controls="accordion-fit-guide">
                   <b>핏 & 스펙 가이드</b>
-                  <i className="fa-solid fa-caret-down"></i>
+                  <i className={`fa-solid ${openAccordions[2] ? 'fa-caret-up' : 'fa-caret-down'}`} aria-hidden="true"></i>
                 </div>
-                <div className="body fit_spec_guide" style={{ display: openAccordions[2] ? 'flex' : 'none' }}>
+                <div id="accordion-fit-guide" className="body fit_spec_guide" style={{ display: openAccordions[2] ? 'flex' : 'none' }}>
                   <div className="fit_container">
                     <div><span>SLIM</span><span>부담스럽지 않게 날씬해 보이는 효과를 주는 핏</span></div>
                     <div><span>STANDARD</span><span>가장 기본적이고 깔끔한, 조금 여유있는 실루엣의 핏</span></div>
@@ -198,14 +245,14 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
                   <div className="spec_container">
                     <div className="spec">
                       <b>신축성</b>
-                      <div className="progress_container">
+                      <div className="progress_container" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         <div className="progress parent"><div className="progress child"></div></div>
                         <div><span>없음</span><span>보통</span><span>좋음</span></div>
                       </div>
                     </div>
                     <div className="spec">
                       <b>두께감</b>
-                      <div className="progress_container">
+                      <div className="progress_container" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                         <div className="progress parent"><div className="progress child"></div></div>
                         <div><span>얇음</span><span>보통</span><span>두꺼움</span></div>
                       </div>
@@ -218,22 +265,22 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
         </section>
 
         {/* Detail More Section */}
-        <section id="detail_more">
+        <section id="detail_more" aria-label="추가 상품 정보">
           <section id="checkpoint">
             <h2>체크포인트</h2>
             <div className="card_container">
               <div className="card">
-                <div className="image_container"><img src={getCommonImage('checkpoint_image_1.jpg')} alt="CP 1" /></div>
+                <div className="image_container"><img src={getCommonImage('checkpoint_image_1.jpg')} alt="체크포인트 1: 빈티지 무드 그래픽 디테일" /></div>
                 <h3>빈티지 무드 그래픽</h3>
                 <p>“MY FAVORITE” 레터링과 귀여운 강아지 그래픽을 조합해 빈티지한 감성과 위트 있는 무드를 동시에 담아낸 디자인입니다.</p>
               </div>
               <div className="card">
-                <div className="image_container"><img src={getCommonImage('checkpoint_image_2.jpg')} alt="CP 2" /></div>
+                <div className="image_container"><img src={getCommonImage('checkpoint_image_2.jpg')} alt="체크포인트 2: 뒤목 로고 디테일" /></div>
                 <h3>로고 디테일</h3>
                 <p>뒤목 아래에 작은 FILA 로고 프린트를 더해 심플한 디자인 속에서도 브랜드 아이덴티티를 자연스럽게 강조합니다.</p>
               </div>
               <div className="card">
-                <div className="image_container"><img src={getCommonImage('checkpoint_image_3.webp')} alt="CP 3" /></div>
+                <div className="image_container"><img src={getCommonImage('checkpoint_image_3.webp')} alt="체크포인트 3: 워싱 컬러 및 프린트 질감" /></div>
                 <h3>워싱 컬러 & 소프트 프린트</h3>
                 <p>워싱된 듯한 컬러 톤과 부드러운 표현으로 과하지 않게 포인트를 더하며, 자연스럽고 감각적인 스타일을 완성합니다.</p>
               </div>
@@ -244,60 +291,131 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
             <h2>모델컷</h2>
             <p>(여) 165cm / 착용 사이즈: S <br/> *모델 착용 이미지보다 제품컷 이미지의 컬러가 정확합니다.</p>
             <div className="model_container">
-              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_1.webp')} alt="MC 1" /></div></div>
-              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_2.webp')} alt="MC 2" /></div></div>
-              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_3.webp')} alt="MC 3" /></div></div>
+              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_1.webp')} alt={`${product.title} 모델 착용 컷 1`} /></div></div>
+              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_2.webp')} alt={`${product.title} 모델 착용 컷 2`} /></div></div>
+              <div className="card"><div className="image_container"><img src={getCommonImage('modelcut_image_3.webp')} alt={`${product.title} 모델 착용 컷 3`} /></div></div>
             </div>
           </section>
         </section>
 
         {/* Review Section */}
         <section id="review">
-            <h2>REVIEW</h2>
-            <button type="button" className="write_review_btn" onClick={() => setIsReviewFormOpen(!isReviewFormOpen)}>
-              {isReviewFormOpen ? '닫기' : '내 리뷰 작성하기'}
-            </button>
+            <div className="review_header_container">
+              <h2>REVIEW</h2>
+              <button type="button" className="write_review_btn" onClick={() => setIsReviewFormOpen(!isReviewFormOpen)}>
+                {isReviewFormOpen ? '작성 취소' : '내 리뷰 작성하기'}
+              </button>
+            </div>
 
             {isReviewFormOpen && (
-              <form className="review_form" onSubmit={handleAddSubmit}>
-                <div className="rating_select">
-                  {[5, 4, 3, 2, 1].map(num => (
-                    <label key={num}>
-                      <input type="radio" name="rating" value={num} checked={newReviewRating === num} onChange={() => setNewReviewRating(num)} />
-                      {num}점
-                    </label>
-                  ))}
-                </div>
-                <textarea placeholder="리뷰를 작성해주세요." value={newReviewContent} onChange={(e) => setNewReviewContent(e.target.value)} />
-                <button type="submit">등록</button>
-              </form>
+              <div className="review_form_wrapper">
+                <form className="review_form_enhanced" onSubmit={handleAddSubmit}>
+                  <div className="form_top">
+                    <h3>상품은 어떠셨나요?</h3>
+                    <div className="star_rating_input">
+                      {[5, 4, 3, 2, 1].map(num => (
+                        <React.Fragment key={num}>
+                          <input 
+                            type="radio" 
+                            id={`star${num}`} 
+                            name="rating" 
+                            value={num} 
+                            checked={newReviewRating === num} 
+                            onChange={() => setNewReviewRating(num)} 
+                          />
+                          <label htmlFor={`star${num}`} title={`${num}점`}>
+                            <i className={`fa-star ${newReviewRating >= num ? 'fa-solid' : 'fa-regular'}`}></i>
+                          </label>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="form_bottom">
+                    <div className="upload_container">
+                      <div className="image_upload_btn">
+                        <input 
+                          type="file" 
+                          id="review-image-upload" 
+                          accept="image/*" 
+                          onChange={handleImageChange} 
+                          style={{ display: 'none' }}
+                        />
+                        <label htmlFor="review-image-upload">
+                          <i className="fa-solid fa-camera"></i>
+                          <span>사진 첨부</span>
+                        </label>
+                      </div>
+                      {imagePreview && (
+                        <div className="preview_box">
+                          <img src={imagePreview} alt="리뷰 미리보기" />
+                          <button type="button" className="remove_img" onClick={handleRemoveImage}>
+                            <i className="fa-solid fa-xmark"></i>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <textarea 
+                      placeholder="다른 구매자들에게 도움이 될 수 있도록 상품에 대한 솔직한 평가를 남겨주세요. (최소 10자 이상)" 
+                      value={newReviewContent} 
+                      onChange={(e) => setNewReviewContent(e.target.value)} 
+                    />
+                    <div className="form_actions">
+                      <span className="char_count">{newReviewContent.length} / 500</span>
+                      <button type="submit" className="submit_btn">리뷰 등록하기</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             )}
 
-            <section className="rating">
-                <div className="average_rating">
-                    <h3><i className="fa-solid fa-star"></i> <span>5.0</span></h3>
-                    <span>100%가 <b>아주 좋아요</b> 라고 평가했습니다.</span>
-                    <span>리뷰 {reviews.length}개</span>
-                </div>
+            <div className="ai_review_summary">
+              <div className="summary_header">
+                <i className="fa-solid fa-wand-magic-sparkles"></i>
+                <span>AI 리뷰 요약</span>
+                <i className="fa-solid fa-circle-info info_icon"></i>
+              </div>
+              <div className="summary_content">
+                <p>최신 리뷰를 기다리는 중이에요.</p>
+                <p>최신 리뷰가 더 모이면, AI가 내용을 정리해 알려드릴게요.</p>
+              </div>
+            </div>
 
-                <div className="total_rating">
-                    <div>
-                        <span className="title">아주 좋아요</span>
-                        <div className="stars">
-                            {[1, 2, 3, 4, 5].map(i => <i key={i} className="fa-solid fa-star"></i>)}
-                        </div>
-                        <span className="count">{reviews.length}</span>
-                    </div>
-                    {["맘에 들어요", "보통이에요", "그냥 그래요", "별로예요"].map(label => (
-                      <div key={label}>
-                          <span className="title">{label}</span>
-                          <div className="stars">
-                              {[1, 2, 3, 4, 5].map(i => <i key={i} className="fa-solid fa-star"></i>)}
-                          </div>
-                          <span className="count">0</span>
-                      </div>
-                    ))}
+            <section className="rating_summary_container">
+              <div className="average_rating_box">
+                <div className="rating_score">
+                  <i className="fa-solid fa-star blue_star"></i>
+                  <span>{reviewStats.average}</span>
                 </div>
+                <div className="rating_text">
+                  <span>{reviewStats.positiveRate}%가 <b>만족해요</b> 라고 평가했습니다.</span>
+                  <span className="total_count">리뷰 {reviewStats.total}개</span>
+                </div>
+              </div>
+
+              <div className="rating_bars_box">
+                {[
+                  { label: "아주 좋아요", idx: 0 },
+                  { label: "맘에 들어요", idx: 1 },
+                  { label: "보통이에요", idx: 2 },
+                  { label: "그냥 그래요", idx: 3 },
+                  { label: "별로예요", idx: 4 }
+                ].map((item) => (
+                  <div key={item.idx} className="rating_bar_item">
+                    <span className="bar_label">{item.label}</span>
+                    <div className="bar_track">
+                      <div 
+                        className="bar_fill" 
+                        style={{ 
+                          width: `${reviewStats.percents[item.idx]}%`,
+                          backgroundColor: item.idx <= 1 ? '#000' : '#d1d5db'
+                        }}
+                      ></div>
+                    </div>
+                    <span className="bar_count">{reviewStats.counts[item.idx]}</span>
+                  </div>
+                ))}
+              </div>
             </section>
 
             <section className="photo_video">
@@ -353,12 +471,14 @@ const ProductDetailPage = ({ product, onAddToCart, reviews, onAddReview, onUpdat
                                   <p className="content">{review.content}</p>
                                 )}
 
-                                <div className="images">
-                                    <div className="image_button">
-                                        <img src={getCommonImage('review_image-1.webp')} alt="Review content" />
-                                        <i className="fa-brands fa-instagram"></i>
-                                    </div>
-                                </div>
+                                {review.image && (
+                                  <div className="images">
+                                      <div className="image_button">
+                                          <img src={review.image} alt="Review content" />
+                                          <i className="fa-brands fa-instagram"></i>
+                                      </div>
+                                  </div>
+                                )}
 
                                 <div className="declaration">
                                     <button type="button" onClick={() => startEdit(review)}>수정</button>

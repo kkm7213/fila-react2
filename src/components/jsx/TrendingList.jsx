@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { trendingData } from '../data/trendingData';
-import './TrendingList.css';
+import { trendingData } from '../../data/trendingData';
+import '../css/TrendingList.css';
 
 const TrendingList = ({ activeCategory, scrollRef }) => {
   const products = trendingData[activeCategory] || [];

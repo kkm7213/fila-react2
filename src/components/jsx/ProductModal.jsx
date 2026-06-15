@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ProductModal.css';
+import '../css/ProductModal.css';
 import defaultImg from '@/assets/image/여자(3).webp';
 
 const ProductModal = ({ isOpen, onClose, product, onAddToCart }) => {

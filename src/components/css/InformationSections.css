@@ -1,24 +1,25 @@
 .information1_section > h2 {
-    font-size: clamp(32px, 5vw, 90px);
-    font-weight: 600;
-    padding: clamp(40px, 8vw, 100px) var(--main-x-padding) 0;
-    line-height: 1.1;
+    font-size: clamp(32px, 5.5vw, 84px);
+    font-weight: 700;
+    padding: clamp(60px, 10vw, 120px) var(--main-x-padding) clamp(32px, 5vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
     word-break: keep-all;
 }
 
 .information1_section > div {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(20px, 3vw, 40px);
-    padding: 40px var(--main-x-padding);
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 3vw, 40px);
+    padding: 0 var(--main-x-padding) clamp(60px, 10vw, 120px);
 }
 
 .information1_section a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    aspect-ratio: 4 / 5;
-    min-height: 500px;
+    aspect-ratio: 1 / 1;
+    min-height: clamp(320px, 50vw, 600px);
     position: relative;
     cursor: pointer;
     display: block;
@@ -31,24 +32,26 @@
     left: 0;
     width: 100%;
     color: #ffffff;
-    padding: clamp(20px, 4vw, 40px);
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    padding: clamp(24px, 5vw, 64px);
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
 .information1_section .information > h3 {
-    font-size: clamp(24px, 3vw, 55px);
-    font-weight: 500;
-    margin-bottom: 0; /* Gap handles this */
+    font-size: clamp(24px, 3.5vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
 }
 
 .information1_section .information > p {
-    font-size: clamp(14px, 1.5vw, 24px);
+    font-size: clamp(14px, 1.4vw, 22px);
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.5;
+    opacity: 0.95;
+    max-width: 85%;
 }
 
 /* Common Arrow Button Style */
@@ -82,7 +85,7 @@
 .information2_section {
     display: flex;
     min-height: clamp(400px, 40vw, 616px);
-    padding: 0 var(--main-x-padding);
+    margin: 0 var(--main-x-padding);
     background-color: #000;
 }
 
@@ -143,7 +146,6 @@
 
 .information3_section .image_container > img {
     width: 100%;
-    height: clamp(300px, 45vw, 800px);
     object-fit: cover;
     display: block;
 }
@@ -191,7 +193,7 @@
         flex-direction: column;
         min-height: auto;
     }
-    
+
     .information2_section > div:first-child {
         padding: 60px 40px;
         align-items: center;
@@ -205,7 +207,7 @@
     .information2_section .information {
         font-size: clamp(18px, 2.2vw, 32px);
     }
-    
+
     .information2_section > div:last-child {
         min-height: 500px;
     }
@@ -265,7 +267,7 @@
     .information1_section a {
         min-height: 350px;
     }
-    
+
     .information2_section > div:last-child {
         min-height: 300px;
     }

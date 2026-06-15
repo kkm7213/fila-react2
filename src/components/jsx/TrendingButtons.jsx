@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './TrendingButtons.css';
+import '../css/TrendingButtons.css';
 
 const TrendingButtons = ({ activeCategory, setActiveCategory, categories, onScroll }) => {
   return (

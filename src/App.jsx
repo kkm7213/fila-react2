@@ -1,19 +1,19 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import { Routes, Route, useNavigate, useLocation, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import CouponBanner from './components/CouponBanner';
-import Header from './components/Header';
-import Carousel from './components/Carousel';
-import TrendingButtons from './components/TrendingButtons';
-import TrendingList from './components/TrendingList';
-import FilaEdit from './components/FilaEdit';
-import InformationSections from './components/InformationSections';
-import ShopTheLook from './components/ShopTheLook';
-import Footer from './components/Footer';
-import ProductModal from './components/ProductModal';
-import ProductListPage from './components/ProductListPage';
-import ProductDetailPage from './components/ProductDetailPage';
-import CartPage from './components/CartPage';
+import CouponBanner from './components/jsx/CouponBanner';
+import Header from './components/jsx/Header';
+import Carousel from './components/jsx/Carousel';
+import TrendingButtons from './components/jsx/TrendingButtons';
+import TrendingList from './components/jsx/TrendingList';
+import FilaEdit from './components/jsx/FilaEdit';
+import InformationSections from './components/jsx/InformationSections';
+import ShopTheLook from './components/jsx/ShopTheLook';
+import Footer from './components/jsx/Footer';
+import ProductModal from './components/jsx/ProductModal';
+import ProductListPage from './components/jsx/ProductListPage';
+import ProductDetailPage from './components/jsx/ProductDetailPage';
+import CartPage from './components/jsx/CartPage';
 import { menProducts } from './data/menProductData';
 import './App.css';
 
@@ -109,6 +109,7 @@ function App() {
         return [...prev, { ...product, cartId: Date.now(), quantity: 1, selectedSize }];
       }
     });
+    setIsCartOpen(true);
   };
 
   const updateCartQuantity = (cartId, change) => {

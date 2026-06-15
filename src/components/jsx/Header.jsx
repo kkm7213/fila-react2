@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Header.css';
+import '../css/Header.css';
 import logoDark from '@/assets/image/logo/header-logo.png';
 import logoWhite from '@/assets/image/logo/header-logo-white.svg';
 
@@ -90,18 +90,18 @@ const Header = ({ isBannerVisible, onMenuClick, cartCount, onCartClick, forceDar
             onMouseEnter={() => setActiveMenu(menu.title)}
           >
             <a href="#" onClick={(e) => handleMenuClick(e, menu.title)} aria-haspopup="true" aria-expanded={activeMenu === menu.title}>{menu.title}</a>
-            <div className="sub_menu_container" style={{ display: (activeMenu === menu.title || isMobileMenuOpen) ? 'flex' : 'none' }}>
+            <div className="sub_menu_container" style={{ display: (activeMenu === menu.title || isMobileMenuOpen) ? 'flex' : 'none' }} role="group" aria-label={`${menu.title} 서브 메뉴`}>
               {menu.subMenus.map((subMenu) => (
-                <div key={subMenu.title}>
-                  <b className="sub_menu_title">
+                <div key={subMenu.title} className="sub_menu_column">
+                  <h3 className="sub_menu_title">
                     <a href="#">{subMenu.title}</a>
-                  </b>
-                  <ul className="sub_menu">
-                    <li>
-                      {subMenu.items.map((item) => (
-                        <a key={item} href="#">{item}</a>
-                      ))}
-                    </li>
+                  </h3>
+                  <ul className="sub_menu_list">
+                    {subMenu.items.map((item) => (
+                      <li key={item}>
+                        <a href="#">{item}</a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}

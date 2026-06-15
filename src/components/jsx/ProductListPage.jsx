@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { menProducts } from '../data/menProductData';
-import './ProductListPage.css';
+import { menProducts } from '../../data/menProductData';
+import '../css/ProductListPage.css';
 
 const categories = ['의류', '신발', '용품', '언더웨어', '스포츠'];
 const sortOptions = ['신상품순', '리뷰순', '판매순', '낮은 가격순', '높은 가격순'];
@@ -14,12 +14,19 @@ const ProductListPage = ({ onProductClick, onAddToCart }) => {
       return menProducts.slice(0, itemsPerPage);
     } else {
       // 1페이지가 아닐 경우 데이터 순서를 섞거나 변형하여 페이지 이동 효과 시뮬레이션
-      return [...menProducts].reverse().slice(0, itemsPerPage).map(item => ({
+      // 원래 id를 유지해야 상세 페이지 연결이 가능함
+      const startIndex = ((currentPage - 1) % 5) * 4;
+      const simulatedProducts = [...menProducts];
+      
+      if (currentPage % 2 === 0) {
+        simulatedProducts.reverse();
+      }
+      
+      return simulatedProducts.slice(0, itemsPerPage).map((item, index) => ({
         ...item,
-        id: `p${currentPage}-${item.id}`, // 고유 키 생성
-        // 이미지를 반전시키거나 다른 이미지를 사용하여 변화를 줌 (여기서는 앞/뒤 이미지를 바꿈)
-        frontImage: item.backImage,
-        backImage: item.frontImage
+        virtualId: `p${currentPage}-${item.id}-${index}`,
+        frontImage: currentPage % 3 === 0 ? item.backImage : item.frontImage,
+        backImage: currentPage % 3 === 0 ? item.frontImage : item.backImage
       }));
     }
   }, [currentPage]);

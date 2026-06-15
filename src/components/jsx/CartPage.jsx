@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './CartPage.css';
+import '../css/CartPage.css';
 
 const CartPage = ({ isOpen, onClose, cartItems, onRemove, onUpdateQuantity, onUpdateOption }) => {
   const [selectedItems, setSelectedProductIds] = useState([]);

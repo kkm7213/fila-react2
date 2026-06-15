@@ -1,5 +1,5 @@
 import React from 'react';
-import './InformationSections.css';
+import '../css/InformationSections.css';
 import inform1 from '@/assets/image/inform1.webp';
 import inform2 from '@/assets/image/inform2.webp';
 import heritageImg from '@/assets/image/2__FILA_HERITAGE_SS26_SUMMER_W_02_189_D.webp';

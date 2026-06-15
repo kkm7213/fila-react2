@@ -1,5 +1,5 @@
 import React from 'react';
-import './CouponBanner.css';
+import '../css/CouponBanner.css';
 
 const CouponBanner = ({ isVisible, onClose }) => {
   if (!isVisible) return null;

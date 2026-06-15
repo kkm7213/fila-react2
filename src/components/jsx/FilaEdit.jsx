@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './FilaEdit.css';
+import '../css/FilaEdit.css';
 
 // 이미지 임포트 (1~15)
 import main1 from '@/assets/image/Fila_Edit/main1.webp';

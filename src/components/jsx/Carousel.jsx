@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { carouselVideos } from '../data/carouselData';
-import './Carousel.css';
+import { carouselVideos } from '../../data/carouselData';
+import '../css/Carousel.css';
 
 const Carousel = () => {
   // Infinite loop prep: [Last, ...Original, First]
