@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/fila-react/',
+  base: '/fila-dist/',
   resolve: {
     alias: {
       "@": path.resolve(fileURLToPath(new URL('./src', import.meta.url))),
